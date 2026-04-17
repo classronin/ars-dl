@@ -17,9 +17,11 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: x86_64-pc-windows-msvc
-      - name: Build
-        run: cargo build --release --target x86_64-pc-windows-msvc
-      - name: Upload
+      - name: Clean previous builds
+        run: cargo clean
+      - name: Build for Windows only
+        run: cargo build --release --target x86_64-pc-windows-msvc --verbose
+      - name: Upload Windows binary
         uses: softprops/action-gh-release@v2
         with:
           files: target/x86_64-pc-windows-msvc/release/ars-dl.exe
