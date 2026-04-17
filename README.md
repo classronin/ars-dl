@@ -6,7 +6,7 @@ ars-dl 是一款用 Rust 编写的轻量级命令行下载工具。
 
 把ars-dl.exe改为你偏好名称，例如我更改为a.exe并且纳入PATH环境变量。
 
-下载：[ars-dl.exe]（https://github.com/classronin/ars-dl/releases/latest/download/ars-dl.exe）
+下载：[ars-dl-x86_64-pc-windows-msvc.zip]（https://github.com/classronin/ars-dl/releases/download/v0.0.1/ars-dl-x86_64-pc-windows-msvc.zip）
 
 用法：
 ```
