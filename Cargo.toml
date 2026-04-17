@@ -1,0 +1,21 @@
+[package]
+name = "ars-dl"
+version = "0.0.1"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.13", default-features = false, features = ["rustls", "stream", "http2"] }
+anyhow = "1"
+regex = "1"
+url = "2"
+indicatif = "0.17"
+futures = "0.3"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["consoleapi", "handleapi", "processenv", "winbase", "wincon"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
