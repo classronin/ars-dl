@@ -11,27 +11,15 @@ permissions:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        include:
-          - target: x86_64-pc-windows-msvc
-            os: windows-latest
-            artifact: ars-dl.exe
-          - target: x86_64-unknown-linux-gnu
-            os: ubuntu-latest
-            artifact: ars-dl
-          - target: x86_64-apple-darwin
-            os: macos-latest
-            artifact: ars-dl
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.target }}
+          targets: x86_64-pc-windows-msvc
       - name: Build
-        run: cargo build --release --target ${{ matrix.target }}
+        run: cargo build --release --target x86_64-pc-windows-msvc
       - name: Upload
         uses: softprops/action-gh-release@v2
         with:
-          files: target/${{ matrix.target }}/release/${{ matrix.artifact }}
+          files: target/x86_64-pc-windows-msvc/release/ars-dl.exe
