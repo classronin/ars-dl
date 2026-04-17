@@ -10,17 +10,21 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build and upload Windows binary
-        uses: taiki-e/upload-rust-binary-action@v1
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          bin: ars-dl
-          target: x86_64-pc-windows-msvc
-          tar: none
-          zip: none
+          targets: x86_64-pc-windows-msvc
+
+      - name: Build Windows binary
+        run: cargo build --release --target x86_64-pc-windows-msvc
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/x86_64-pc-windows-msvc/release/ars-dl.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
