@@ -2,6 +2,10 @@
 name = "ars-dl"
 version = "0.0.1"
 edition = "2024"
+authors = ["classronin"]
+description = "一个轻量级的命令行下载器，具有智能回退和隐身浏览器支持。"
+repository = "https://github.com/classronin/ars-dl"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
@@ -19,3 +23,8 @@ winapi = { version = "0.3", features = ["consoleapi", "handleapi", "processenv",
 lto = true
 codegen-units = 1
 strip = true
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
