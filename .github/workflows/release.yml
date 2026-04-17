@@ -10,25 +10,17 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  release:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Build and upload Windows binary
+        uses: taiki-e/upload-rust-binary-action@v1
         with:
-          targets: x86_64-pc-windows-msvc
-
-      - name: Remove old target directory
-        run: Remove-Item -Recurse -Force target -ErrorAction SilentlyContinue
-
-      - name: Build Windows binary
-        run: cargo build --release --target x86_64-pc-windows-msvc
-
-      - name: Verify only exe exists
-        run: dir target\x86_64-pc-windows-msvc\release\*.exe
-
-      - name: Upload Windows binary
-        uses: softprops/action-gh-release@v2
-        with:
-          files: target/x86_64-pc-windows-msvc/release/ars-dl.exe
+          bin: ars-dl
+          target: x86_64-pc-windows-msvc
+          tar: none
+          zip: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
