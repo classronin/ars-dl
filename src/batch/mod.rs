@@ -1,4 +1,4 @@
-use crate::utils::{ensure_dir, extract_filename};
+use crate::utils::{ensure_dir, extract_filename, format_bytes, format_duration};
 use anyhow::Result;
 use indicatif::{ProgressBar, ProgressDrawTarget, ProgressStyle};
 use regex::Regex;
@@ -185,18 +185,5 @@ fn determine_folder(template: &str, custom: Option<&str>) -> PathBuf {
         let path = std::path::Path::new(url.path());
         let stem = path.file_stem().unwrap_or_default().to_string_lossy();
         PathBuf::from(stem.as_ref())
-    }
-}
-
-fn format_duration(secs: u64) -> String {
-    if secs < 60 {
-        format!("{}s", secs)
-    } else if secs < 3600 {
-        format!("{}m{}s", secs / 60, secs % 60)
-    } else {
-        let hours = secs / 3600;
-        let mins = (secs % 3600) / 60;
-        let secs = secs % 60;
-        format!("{}h{}m{}s", hours, mins, secs)
     }
 }
